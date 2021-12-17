@@ -24,6 +24,8 @@ const meaning = (typeId = 0, values = []) => {
 }
 
 const removeAndReturn = length => {
+	//removes everything from 0 to length in the binary data, and returns the removed data
+	//basically used to remove packets after they have been parsed and no longer needed.
     const slice = binary.slice(0, length);
     binary = binary.slice(length);
     return slice;
@@ -45,6 +47,7 @@ const calc = () => {
             isLastGroup = startsWith === '0';
         }
         //remove the values, and return it so it can be used to find to calculate
+	    //so basically when a operator packet calls the calc function, it will check subpackets and if it's a literal one, it will get removed and the value of it will be returned.
         return bin2dec(num);
     } else { // operator
         //remove typeid and return it
