@@ -1,8 +1,10 @@
 const _ = require('underscore');
 const fs = require('fs');
 
+//this finds the minimum and maximum value of 2 lines.
 const line_overlap = (min0, max0, min1, max1) => [Math.max(min0, min1), Math.min(max0, max1)];
 
+//box class, not used to represent each box unit but each line of instruction
 class Box {
   constructor(x1, x2, y1, y2, z1, z2) {
     this.x1 = x1;
@@ -51,6 +53,7 @@ boxes = [];
 //reading input backwards. this way we dont have to worry about offs and only ons
 _.each(input.reverse(), i => {
   box = new Box(...i[1]);
+  //we get the box volume and subtract overlap to account for overlapping ons and other interesting scenarios
   if (i[0] == 'on') on += box.volume - overlap(box, boxes);
   boxes.push(box);
 })
